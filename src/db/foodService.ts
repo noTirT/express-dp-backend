@@ -18,7 +18,7 @@ const insert = (data: FoodDTO, errorCallback: (err: Error) => void, sucecssCallb
 		id: crypto.randomUUID(),
 	};
 	Database.run(
-		"INSERT INTO food (id, name, description, diettype, foodcategory) VALUES (?,?,?,?,?)",
+		"INSERT INTO food (id, name, description, type, category) VALUES (?,?,?,?,?)",
 		[item.id, item.name, item.description, item.type, item.category],
 		(err) => {
 			if (err) {

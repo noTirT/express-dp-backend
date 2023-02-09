@@ -5,6 +5,8 @@ import DietTypeRouter from "./routes/diettypes";
 import FoodCategoryRouter from "./routes/foodcategory";
 import swaggerUi from "swagger-ui-express";
 const swaggerJson = require("../data/swagger.json");
+import cors from "cors";
+
 /* import { initializeApp } from "firebase/app";
 import { initializeAnalytics } from "firebase/analytics";
 
@@ -26,6 +28,7 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 3333;
 
+app.use(cors());
 app.use(express.json());
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerJson));
 app.use("/food", FoodRouter);

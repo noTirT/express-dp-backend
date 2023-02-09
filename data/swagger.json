@@ -142,6 +142,39 @@
 			}
 		},
 		"/food/{foodId}": {
+			"put": {
+				"operationId": "updateFoodItem",
+				"summary": "Update values of a Food item by its ID",
+				"tags": ["Food"],
+				"requestBody": {
+					"description": "Updated item values",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/FoodDTO"
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "foodId",
+						"in": "path",
+						"description": "ID of the Food item to be updated",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": "ISO-8"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The Food item was updated"
+					}
+				}
+			},
 			"delete": {
 				"operationId": "deleteFoodById",
 				"summary": "Delete a Food item by its ID",

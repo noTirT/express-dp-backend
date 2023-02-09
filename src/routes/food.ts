@@ -32,4 +32,14 @@ router.delete("/:foodId", (req: Request, res: Response) => {
 	);
 });
 
+router.put("/:foodId", (req: Request, res: Response) => {
+	const data: FoodDTO = req.body;
+	service.updateById(
+		req.params.foodId,
+		data,
+		(err: Error) => res.json({ message: "error", error: err.message }),
+		() => res.json({ message: "success" })
+	);
+});
+
 export default router;

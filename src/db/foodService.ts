@@ -42,8 +42,24 @@ const deleteById = (id: string, errorCallback: (err: Error) => void, successCall
 	});
 };
 
+const updateById = (id: string, body: FoodDTO, errorCallback: (err: Error) => void, successCallback: () => void) => {
+	Database.run(
+		"UPDATE food SET name=?, description=?, type=?, category=? WHERE id=?",
+		[body.name, body.description, body.type, body.category, id],
+		(err) => {
+			if (err) {
+				errorCallback(err);
+				return console.log(err);
+			}
+			console.log("Row Updated: " + JSON.stringify({ id, ...body }));
+			successCallback();
+		}
+	);
+};
+
 export const foodService = {
 	insert,
 	deleteById,
 	getAll,
+	updateById,
 };

@@ -1,0 +1,349 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Dietplanner API",
+		"version": "1.0.0",
+		"contact": {
+			"name": "noTirT",
+			"email": "tommanger55@gmail.com"
+		}
+	},
+	"tags": [
+		{
+			"name": "Diettype",
+			"description": "Diettype management API"
+		},
+		{
+			"name": "Food",
+			"description": "Food management API"
+		},
+		{
+			"name": "Foodcategory",
+			"description": "Foodcategory management API"
+		}
+	],
+	"paths": {
+		"/diettype": {
+			"get": {
+				"operationId": "getAllDiettype",
+				"summary": "Get a list of all Diettypes",
+				"tags": ["Diettype"],
+				"responses": {
+					"200": {
+						"description": "The list of Diettypes",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DiettypeDBO"
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"operationId": "createNewDiettype",
+				"summary": "Create a new Diettype",
+				"tags": ["Diettype"],
+				"requestBody": {
+					"description": "The new Diettype",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DiettypeDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The new Diettype",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DiettypeDBO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/diettype/{id}": {
+			"delete": {
+				"operationId": "deleteDiettypeById",
+				"summary": "Delete a Diettype by its ID",
+				"tags": ["Diettype"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "ID of the Diettype to be deleted",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The Diettype was deleted"
+					}
+				}
+			}
+		},
+		"/food": {
+			"get": {
+				"operationId": "getAllFood",
+				"summary": "List of all Food items",
+				"tags": ["Food"],
+				"responses": {
+					"200": {
+						"description": "application/json",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FoodDBO"
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"operationId": "createNewFood",
+				"summary": "Create a new Food item",
+				"tags": ["Food"],
+				"requestBody": {
+					"description": "New Food item",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/FoodDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The new Food item",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FoodDBO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/food/{foodId}": {
+			"delete": {
+				"operationId": "deleteFoodById",
+				"summary": "Delete a Food item by its ID",
+				"tags": ["Food"],
+				"parameters": [
+					{
+						"name": "foodId",
+						"in": "path",
+						"description": "ID of the Food item to be deleted",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The Food item was deleted"
+					}
+				}
+			}
+		},
+		"/foodcategory": {
+			"get": {
+				"operationId": "getAllFoodCategories",
+				"summary": "Get a list of all Foodcategories",
+				"tags": ["Foodcategory"],
+				"responses": {
+					"200": {
+						"description": "List of all Foodcategories",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FoodCategoryDBO"
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"operationId": "createNewFoodCategory",
+				"summary": "Create a new Foodcategory",
+				"tags": ["Foodcategory"],
+				"requestBody": {
+					"description": "The new Foodcategory",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/FoodCategoryDTO"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "The new Foodcategory",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FoodCategoryDBO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/foodcategory/{itemId}": {
+			"delete": {
+				"operationId": "deleteFoodCategoryById",
+				"summary": "Delete Foodcategory by ID",
+				"tags": ["Foodcategory"],
+				"parameters": [
+					{
+						"name": "itemId",
+						"in": "path",
+						"description": "ID of the Foodcategory to be deleted",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The Foodcategory was deleted"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"DiettypeDBO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "Auto-generate id of the Diettype",
+						"example": "4"
+					},
+					"name": {
+						"type": "string",
+						"description": "Name of the Diettype",
+						"example": "laktosefrei"
+					}
+				}
+			},
+			"DiettypeDTO": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name of the Diettype",
+						"example": "laktosefrei"
+					}
+				}
+			},
+			"FoodDBO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "Auto-generated id of the Food item",
+						"example": "3"
+					},
+					"name": {
+						"type": "string",
+						"description": "Name of the Food item",
+						"example": "Pizza"
+					},
+					"description": {
+						"type": "string",
+						"description": "Description of the food item",
+						"required": false
+					},
+					"type": {
+						"type": "string",
+						"description": "Type of the Food item",
+						"example": "laktosefrei"
+					},
+					"category": {
+						"type": "string",
+						"description": "Category of the Food item",
+						"example": "Mittagessen"
+					}
+				}
+			},
+			"FoodDTO": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name of the Food item",
+						"example": "Pizza"
+					},
+					"description": {
+						"type": "string",
+						"description": "Description of the food item",
+						"required": false
+					},
+					"type": {
+						"type": "string",
+						"description": "Type of the Food item",
+						"example": "laktosefrei"
+					},
+					"category": {
+						"type": "string",
+						"description": "Category of the Food item",
+						"example": "Mittagessen"
+					}
+				}
+			},
+			"FoodCategoryDBO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "Auto-generated ID of the Foodcategory",
+						"example": "3"
+					},
+					"name": {
+						"type": "string",
+						"description": "Name of the Foodcategory",
+						"example": "Mittagessen"
+					}
+				}
+			},
+			"FoodCategoryDTO": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name of the Foodcategory",
+						"example": "Mittagessen"
+					}
+				}
+			}
+		}
+	}
+}

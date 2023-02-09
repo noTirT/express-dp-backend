@@ -17,7 +17,7 @@ const getAll = (returnCallback, errorCallback) => {
 };
 const insert = (data, errorCallback, sucecssCallback) => {
     const item = Object.assign(Object.assign({}, data), { id: crypto_1.default.randomUUID() });
-    db_1.default.run("INSERT INTO food (id, name, description, diettype, foodcategory) VALUES (?,?,?,?,?)", [item.id, item.name, item.description, item.type, item.category], (err) => {
+    db_1.default.run("INSERT INTO food (id, name, description, type, category) VALUES (?,?,?,?,?)", [item.id, item.name, item.description, item.type, item.category], (err) => {
         if (err) {
             errorCallback(err);
             return console.log(err);
@@ -36,8 +36,19 @@ const deleteById = (id, errorCallback, successCallback) => {
         successCallback();
     });
 };
+const updateById = (id, body, errorCallback, successCallback) => {
+    db_1.default.run("UPDATE food SET name=?, description=?, type=?, category=? WHERE id=?", [body.name, body.description, body.type, body.category, id], (err) => {
+        if (err) {
+            errorCallback(err);
+            return console.log(err);
+        }
+        console.log("Row Updated: " + JSON.stringify(Object.assign({ id }, body)));
+        successCallback();
+    });
+};
 exports.foodService = {
     insert,
     deleteById,
     getAll,
+    updateById,
 };

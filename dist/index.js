@@ -10,6 +10,7 @@ const diettypes_1 = __importDefault(require("./routes/diettypes"));
 const foodcategory_1 = __importDefault(require("./routes/foodcategory"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swaggerJson = require("../data/swagger.json");
+const cors_1 = __importDefault(require("cors"));
 /* import { initializeApp } from "firebase/app";
 import { initializeAnalytics } from "firebase/analytics";
 
@@ -28,7 +29,8 @@ const analytics = initializeAnalytics(firebaseApp);
  */
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT;
+const port = process.env.PORT || 3333;
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use("/swagger", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerJson));
 app.use("/food", food_1.default);

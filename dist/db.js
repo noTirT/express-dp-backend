@@ -54,11 +54,11 @@ const createTables = (newDb) => {
             id text not null,
             name text not null, 
             description text,
-            diettype text,
-            foodcategory text,
+            type text,
+            category text,
             primary key (id),
-            constraint FK_foodcategory foreign key (foodcategory) references foodcategory(id),
-            constraint FK_diettype foreign key (diettype) references diettype(id)
+            constraint FK_foodcategory foreign key (category) references foodcategory(id),
+            constraint FK_diettype foreign key (type) references diettype(id)
         );
     `);
 };

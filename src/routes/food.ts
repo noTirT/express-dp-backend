@@ -4,6 +4,10 @@ import { FoodDBO, FoodDTO } from "../types";
 
 const router = express.Router();
 
+router.get("/test", (req: Request, res: Response) => {
+	res.json({ message: "success", data: "test good" });
+});
+
 router.get("/", (req: Request, res: Response) => {
 	service.getAll(
 		(data: FoodDBO[]) =>

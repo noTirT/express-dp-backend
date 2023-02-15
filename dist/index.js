@@ -11,27 +11,13 @@ const foodcategory_1 = __importDefault(require("./routes/foodcategory"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swaggerJson = require("../data/swagger.json");
 const cors_1 = __importDefault(require("cors"));
-/* import { initializeApp } from "firebase/app";
-import { initializeAnalytics } from "firebase/analytics";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCnWpxm4OYE0D3GBre9Qiurb34SibdUwgo",
-    authDomain: "dietplanner-backend.firebaseapp.com",
-    projectId: "dietplanner-backend",
-    storageBucket: "dietplanner-backend.appspot.com",
-    messagingSenderId: "206600349106",
-    appId: "1:206600349106:web:5c243452af5950ee6370ab",
-    measurementId: "G-B1GJ09KHFG",
-};
-
-const firebaseApp = initializeApp(firebaseConfig);
-const analytics = initializeAnalytics(firebaseApp);
- */
+const path_1 = __importDefault(require("path"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3333;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+app.use("/static", express_1.default.static(path_1.default.join(__dirname, "../data/recipes")));
 app.use("/swagger", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerJson));
 app.use("/food", food_1.default);
 app.use("/diettype", diettypes_1.default);

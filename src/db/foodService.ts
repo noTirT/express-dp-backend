@@ -2,6 +2,9 @@ import Database from "../db";
 import { FoodDBO, FoodDTO } from "../types";
 import crypto from "crypto";
 
+type FoodWODescDTO = Omit<FoodDTO, "description">;
+type FoodWODescDBO = Omit<FoodDBO, "description">;
+
 const getAll = (returnCallback: (data: any[]) => void, errorCallback: (err: Error) => void) => {
 	Database.all("SELECT * FROM food ORDER BY name", (err, rows) => {
 		if (err) {
@@ -12,14 +15,18 @@ const getAll = (returnCallback: (data: any[]) => void, errorCallback: (err: Erro
 	});
 };
 
-const insert = (data: FoodDTO, errorCallback: (err: Error) => void, sucecssCallback: (created: FoodDBO) => void) => {
-	const item: FoodDBO = {
+const insert = (
+	data: FoodDTO | FoodWODescDTO,
+	errorCallback: (err: Error) => void,
+	sucecssCallback: (created: FoodDBO | FoodWODescDBO) => void
+) => {
+	const item: FoodDBO | FoodWODescDBO = {
 		...data,
 		id: crypto.randomUUID(),
 	};
 	Database.run(
 		"INSERT INTO food (id, name, description, type, category) VALUES (?,?,?,?,?)",
-		[item.id, item.name, item.description, item.type, item.category],
+		[item.id, item.name, "description" in item ? item.description : "", item.type, item.category],
 		(err) => {
 			if (err) {
 				errorCallback(err);
@@ -42,10 +49,15 @@ const deleteById = (id: string, errorCallback: (err: Error) => void, successCall
 	});
 };
 
-const updateById = (id: string, body: FoodDTO, errorCallback: (err: Error) => void, successCallback: () => void) => {
+const updateById = (
+	id: string,
+	body: Omit<FoodDTO, "description">,
+	errorCallback: (err: Error) => void,
+	successCallback: () => void
+) => {
 	Database.run(
-		"UPDATE food SET name=?, description=?, type=?, category=? WHERE id=?",
-		[body.name, body.description, body.type, body.category, id],
+		"UPDATE food SET name=?, type=?, category=? WHERE id=?",
+		[body.name, body.type, body.category, id],
 		(err) => {
 			if (err) {
 				errorCallback(err);

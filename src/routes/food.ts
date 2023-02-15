@@ -89,6 +89,7 @@ router.post("/recipe", (req: Request, res: Response) => {
 		console.log(fields);
 
 		if (!files.length) {
+			//@ts-ignore
 			const file: formidable.File = files.file;
 
 			const fileId = crypto.randomUUID();
@@ -104,6 +105,7 @@ router.post("/recipe", (req: Request, res: Response) => {
 				console.log(err);
 			}
 
+			//@ts-ignore
 			const newFood = JSON.parse(fields.data);
 
 			service.insert(

@@ -21,6 +21,7 @@ router.post("/", async (req: Request<{}, {}, PlanParameters>, res: Response) => 
 		}
 		return res.status(200).json({ message: "success", data: resultSet });
 	} catch (error) {
+		console.log(error);
 		return res.status(500).json({ message: "error", error });
 	}
 });

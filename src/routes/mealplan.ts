@@ -12,6 +12,9 @@ router.post("/", async (req: Request<{}, {}, PlanParameters>, res: Response) => 
 	try {
 		//@ts-ignore
 		const data: FoodDBO[] = await service.generatePlan(req.body);
+
+		if (data.length <= 7) return res.status(200).json({ message: "success", data });
+
 		const resultSet = [];
 		var i;
 		for (i = 0; i < 7; i++) {

@@ -1,26 +1,61 @@
-export interface FoodDTO {
-	name: string;
-	description: string | null;
-	type: string;
-	category: string;
-}
+import { z } from "zod";
 
-export interface FoodDBO extends FoodDTO {
-	id: string;
-}
+export const FoodDTOSchema = z
+	.object({
+		name: z.string(),
+		description: z.optional(z.string()),
+		type: z.string(),
+		category: z.string(),
+	})
+	.strict();
 
-export interface DietTypeDTO {
-	name: string;
-}
+export type FoodDTO = z.infer<typeof FoodDTOSchema>;
 
-export interface DietTypeDBO extends DietTypeDTO {
-	id: string;
-}
+export const FoodDBOSchema = FoodDTOSchema.extend({
+	id: z.string(),
+});
 
-export interface FoodCategoryDTO {
-	name: string;
-}
+export type FoodDBO = z.infer<typeof FoodDBOSchema>;
 
-export interface FoodCategoryDBO extends FoodCategoryDTO {
-	id: string;
-}
+export const DietTypeDTOSchema = z
+	.object({
+		name: z.string(),
+	})
+	.strict();
+
+export type DietTypeDTO = z.infer<typeof DietTypeDTOSchema>;
+
+export const DietTypeDBOSchema = DietTypeDTOSchema.extend({
+	id: z.string(),
+});
+
+export type DietTypeDBO = z.infer<typeof DietTypeDBOSchema>;
+
+export const FoodCategoryDTOSchema = z
+	.object({
+		name: z.string(),
+	})
+	.strict();
+
+export type FoodCategoryDTO = z.infer<typeof FoodCategoryDTOSchema>;
+
+export const FoodCategoryDBOSchema = FoodCategoryDTOSchema.extend({
+	id: z.string(),
+});
+
+export type FoodCategoryDBO = z.infer<typeof FoodCategoryDBOSchema>;
+
+export const PlanParametersSchema = z
+	.object({
+		categories: z.optional(z.array(z.string())),
+		types: z.optional(z.array(z.string())),
+	})
+	.strict();
+
+export type PlanParameters = z.infer<typeof PlanParametersSchema>;
+
+export const IDParameterSchema = z.object({
+	id: z.string(),
+});
+
+export type IDParameter = z.infer<typeof IDParameterSchema>;

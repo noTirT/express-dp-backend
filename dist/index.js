@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const food_1 = __importDefault(require("./routes/food"));
 const diettypes_1 = __importDefault(require("./routes/diettypes"));
 const foodcategory_1 = __importDefault(require("./routes/foodcategory"));
+const mealplan_1 = __importDefault(require("./routes/mealplan"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swaggerJson = require("../data/swagger.json");
 const cors_1 = __importDefault(require("cors"));
@@ -22,6 +23,7 @@ app.use("/swagger", swagger_ui_express_1.default.serve, swagger_ui_express_1.def
 app.use("/food", food_1.default);
 app.use("/diettype", diettypes_1.default);
 app.use("/foodcategory", foodcategory_1.default);
+app.use("/planner", mealplan_1.default);
 app.listen(port, () => {
     console.log("Server is running at https://localhost:" + port);
 });

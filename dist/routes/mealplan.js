@@ -13,36 +13,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const diettypesSerivce_1 = require("../service/diettypesSerivce");
+const plannerService_1 = require("../service/plannerService");
 const types_1 = require("../types");
 const util_1 = require("../util");
 const router = express_1.default.Router();
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const data = yield diettypesSerivce_1.diettypeService.getAll();
-        return res.status(200).json({ message: "success", data });
-    }
-    catch (error) {
-        return res.status(500).json({ message: "error", error });
-    }
-}));
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!(0, util_1.validate)(req.body, types_1.DietTypeDTOSchema))
-        return res.json(400).json({ message: "error", error: "Wrong Request Body" });
+    if (!(0, util_1.validate)(req.body, types_1.PlanParametersSchema))
+        return res.status(400).json({ message: "error", error: "Wrong request body" });
     try {
-        const data = yield diettypesSerivce_1.diettypeService.insert(req.body);
-        return res.status(200).json({ message: "success", data });
-    }
-    catch (error) {
-        return res.status(500).json({ message: "error", error });
-    }
-}));
-router.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!(0, util_1.validate)(req.params, types_1.IDParameterSchema))
-        return res.status(400).json({ message: "error", error: "Wrong Request Parameter" });
-    try {
-        const data = yield diettypesSerivce_1.diettypeService.deleteById(req.params.id);
-        return res.status(200).json({ message: "success", data });
+        //@ts-ignore
+        const data = yield plannerService_1.plannerService.generatePlan(req.body);
+        const resultSet = [];
+        var i;
+        for (i = 0; i < 7; i++) {
+            const index = Math.floor(Math.random() * data.length);
+            resultSet.push(data.at(index));
+            data.splice(index, 1);
+        }
+        return res.status(200).json({ message: "success", data: resultSet });
     }
     catch (error) {
         return res.status(500).json({ message: "error", error });

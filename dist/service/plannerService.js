@@ -12,6 +12,7 @@ function generatePlan(params) {
     return new Promise((resolve, reject) => {
         db_1.default.all(generateQuery(params), (err, rows) => {
             if (err) {
+                console.log(err);
                 reject(err);
             }
             resolve(rows);

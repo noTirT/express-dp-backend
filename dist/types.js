@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.IDParameterSchema = exports.PlanParametersSchema = exports.FoodCategoryDBOSchema = exports.FoodCategoryDTOSchema = exports.DietTypeDBOSchema = exports.DietTypeDTOSchema = exports.FoodDBOSchema = exports.FoodDTOSchema = void 0;
+exports.UserDBOSchema = exports.UserDTOSchema = exports.IDParameterSchema = exports.PlanParametersSchema = exports.FoodCategoryDBOSchema = exports.FoodCategoryDTOSchema = exports.DietTypeDBOSchema = exports.DietTypeDTOSchema = exports.FoodDBOSchema = exports.FoodDTOSchema = void 0;
 const zod_1 = require("zod");
 exports.FoodDTOSchema = zod_1.z
     .object({
@@ -38,3 +38,9 @@ exports.PlanParametersSchema = zod_1.z
 exports.IDParameterSchema = zod_1.z.object({
     id: zod_1.z.string(),
 });
+exports.UserDTOSchema = zod_1.z.object({
+    email: zod_1.z.string().email(),
+    username: zod_1.z.string(),
+    password: zod_1.z.string(),
+});
+exports.UserDBOSchema = exports.UserDTOSchema.extend({ id: zod_1.z.string() });

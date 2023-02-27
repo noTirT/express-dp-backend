@@ -59,3 +59,15 @@ export const IDParameterSchema = z.object({
 });
 
 export type IDParameter = z.infer<typeof IDParameterSchema>;
+
+export const UserDTOSchema = z.object({
+	email: z.string().email(),
+	username: z.string(),
+	password: z.string(),
+});
+
+export const UserDBOSchema = UserDTOSchema.extend({ id: z.string() });
+
+export type UserDTO = z.infer<typeof UserDTOSchema>;
+
+export type UserDBO = z.infer<typeof UserDBOSchema>;

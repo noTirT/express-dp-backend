@@ -23,6 +23,8 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //@ts-ignore
         const data = yield plannerService_1.plannerService.generatePlan(req.body);
+        if (data.length <= 7)
+            return res.status(200).json({ message: "success", data });
         const resultSet = [];
         var i;
         for (i = 0; i < 7; i++) {
@@ -33,6 +35,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.status(200).json({ message: "success", data: resultSet });
     }
     catch (error) {
+        console.log(error);
         return res.status(500).json({ message: "error", error });
     }
 }));

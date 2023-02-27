@@ -3,6 +3,8 @@ import { z } from "zod";
 import { FoodDTO } from "./types";
 import fs from "fs";
 import { join } from "path";
+import crypto from "crypto";
+import { NextFunction, Request, Response } from "express";
 
 export function validate<T extends z.ZodTypeAny>(data: unknown, schema: T): boolean {
 	try {
@@ -39,4 +41,23 @@ export function savePdf(file: formidable.File, errorCallback: () => void) {
 	}
 
 	return fileID;
+}
+
+export function getHashedPassword(password: string) {
+	const sha256 = crypto.createHash("sha256");
+	const hash = sha256.update(password).digest("base64");
+	return hash;
+}
+
+export function generateAuthToken() {
+	return crypto.randomBytes(30).toString("hex");
+}
+
+export function requireAuth(req: Request, res: Response, next: NextFunction) {
+	//@ts-ignore
+	if (req.user) {
+		next();
+	} else {
+		return res.status(401).json({ message: "error", erro: "Unauthorized" });
+	}
 }

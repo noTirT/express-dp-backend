@@ -1,14 +1,14 @@
-import { exit } from "process";
-import sqlite3 from "sqlite3";
 import fs from "fs";
 import path from "path";
+import { exit } from "process";
+import sqlite3 from "sqlite3";
 
 const db = new sqlite3.Database("./data/database.db", sqlite3.OPEN_READWRITE, (err) => {
 	if (err && err.message.includes("SQLITE_CANTOPEN")) {
 		createDatabase();
 		return;
 	} else if (err) {
-		console.log("Gettaing error: " + err);
+		console.log("Getting error on main database: " + err);
 		exit(1);
 	}
 });
@@ -16,7 +16,7 @@ const db = new sqlite3.Database("./data/database.db", sqlite3.OPEN_READWRITE, (e
 const createDatabase = () => {
 	var newDb = new sqlite3.Database("./data/database.db", (err) => {
 		if (err) {
-			console.log("Getting error: " + err);
+			console.log("Getting error on main database creation: " + err);
 			exit(1);
 		}
 		createTables(newDb);

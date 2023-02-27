@@ -57,7 +57,6 @@ function getUserByToken(token) {
         userDb_1.default.all("SELECT * FROM token WHERE token=?", [token], (err, rows) => {
             if (err)
                 reject(err);
-            console.log(rows);
             resolve(rows[0]);
         });
     });

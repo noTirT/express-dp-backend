@@ -60,7 +60,6 @@ function getUserByToken(token: string): Promise<UserDBO> {
 	return new Promise((resolve, reject) => {
 		Database.all("SELECT * FROM token WHERE token=?", [token], (err, rows) => {
 			if (err) reject(err);
-			console.log(rows);
 			resolve(rows[0] as UserDBO);
 		});
 	});
